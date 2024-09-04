@@ -7,7 +7,7 @@ import os
 import argparse
 
 import tensorrt as trt
-from tensorrt.tensorrt import Logger, Runtime
+from tensorrt import Logger, Runtime
 from cn_clip.clip.utils import _MODEL_INFO
 from tensorrt_utils import TensorRTShape, build_engine
 

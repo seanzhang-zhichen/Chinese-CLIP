@@ -8,7 +8,7 @@ import torch
 
 import tensorrt as trt
 from tensorrt import ICudaEngine, ILayer, INetworkDefinition, Logger, Runtime
-from tensorrt.tensorrt import Builder, IBuilderConfig, IElementWiseLayer, IOptimizationProfile, IReduceLayer
+from tensorrt import Builder, IBuilderConfig, IElementWiseLayer, IOptimizationProfile, IReduceLayer
 
 
 @dataclass
@@ -209,9 +209,9 @@ def build_engine(
 
     logger.log(msg="building engine. depending on model size this may take a while", severity=trt.ILogger.WARNING)
     start = time()
-    # trt_engine = builder.build_serialized_network(network_def, config)
-    # engine: ICudaEngine = runtime.deserialize_cuda_engine(trt_engine)
-    engine = builder.build_engine(network_def, config=config)
+    trt_engine = builder.build_serialized_network(network_def, config)
+    engine: ICudaEngine = runtime.deserialize_cuda_engine(trt_engine)
+    # engine = builder.build_engine(network_def, config=config)
     logger.log(msg=f"building engine took {time() - start:4.1f} seconds", severity=trt.ILogger.WARNING)
     assert engine is not None, "error during engine generation, check error messages above :-("
     # save global timing cache
